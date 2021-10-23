@@ -6,4 +6,5 @@ export type Project = {
   explanation: string
   Progress?: number
   imgUrl?: string
+  earnedValue?: number //Arduino側から渡されたお金
 }

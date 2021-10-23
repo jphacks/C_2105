@@ -1,16 +1,14 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 import { Project } from '../types/types'
 import { EarnedValue } from './EarnedValue'
-import { useHistory } from 'react-router-dom'
-type Props = { project: Project }
+type Props = { project: Project; changeProject: (project: Project) => void }
 
-export const FundRasingItem: FC<Props> = ({ project }) => {
-  const history = useHistory()
+const FundRasingItem: FC<Props> = ({ project, changeProject }) => {
   return (
     <div
-      className="grid grid-cols-3 border border-black w-96 h-32"
+      className="grid grid-cols-3 border border-black w-96 h-32 bg-white"
       onClick={() => {
-        history.push(`${project.id}/loading`)
+        changeProject({ ...project })
       }}
     >
       <div className="col-span-1 bg-gray-300">ここ画像</div>
@@ -30,3 +28,5 @@ export const FundRasingItem: FC<Props> = ({ project }) => {
     </div>
   )
 }
+
+export const FundRasingMemoItem = memo(FundRasingItem)

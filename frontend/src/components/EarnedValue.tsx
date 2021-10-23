@@ -1,13 +1,21 @@
-import { useEffect, FC } from 'react'
-import socketIOClient from 'socket.io-client'
+import { FC } from 'react'
 
-const ENDPOINT = 'http://localhost:3001'
+type Props = {
+  EarnedValue?: number
+}
+//いい感じに達成度のcss調整するの大変そう（？）だったので一応切り分けてある
+export const EarnedValue: FC<Props> = ({ EarnedValue }) => {
+  //プロジェクトごとの金額取得APIが必要そう
 
-export const EarnedValue: FC = () => {
-  const socket = socketIOClient(ENDPOINT)
-  if (socket !== undefined) {
-    //ソケットを通してset_nicknameイベントを発火する
-    socket.emit('test')
+  if (!EarnedValue) {
+    return <></>
   }
-  return <div>達成状況</div>
+  return (
+    <div className="flex justify-between">
+      <div>達成状況</div>
+      <div className="border border-black rounded-full w-32">
+        ￥{EarnedValue.toLocaleString()}
+      </div>
+    </div>
+  )
 }

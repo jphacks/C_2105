@@ -1,4 +1,4 @@
-import { FC, useEffect, memo } from 'react'
+import { FC, useEffect } from 'react'
 import { FundRasingMemoItems } from '../components/FundRaisingItems'
 import socketIOClient from 'socket.io-client'
 import { useHistory } from 'react-router-dom'
@@ -37,5 +37,3 @@ export const FundRaisingList: FC<Props> = () => {
     </>
   )
 }
-
-export const FundRaisingMemoList = memo(FundRaisingList)

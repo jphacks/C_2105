@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { Project } from '../types/types'
+import { EarnedValue } from './EarnedValue'
 
 type Props = { project: Project }
 
@@ -16,7 +17,9 @@ export const FundRasingItem: FC<Props> = ({ project }) => {
           {project.explanation}
         </div>
         {/* <div className="font-bold row-span-1">説明</div> */}
-        <div className="font-bold row-span-1 h-3">達成状況</div>
+        <div className="font-bold row-span-1 h-3">
+          <EarnedValue />
+        </div>
       </div>
     </div>
   )

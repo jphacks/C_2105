@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { FundRaisingList } from './page/FundRaisingList'
 import { Layout } from './components/Layout'
 import { LoadingOnFundraising } from './page/LoadingOnFundraising'
+import { ResultFundRaising } from './page/ResultFundRaising'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,6 +28,7 @@ const App: VFC = () => {
                 path="/:projectId/loading"
                 component={LoadingOnFundraising}
               />
+              <Route path="/:projectId/result" component={ResultFundRaising} />
             </Switch>
           </Layout>
         </BrowserRouter>

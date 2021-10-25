@@ -8,8 +8,6 @@ export const LoadingOnFundraising: FC = () => {
   //TODO バックエンド側の金額配分API叩く処理
   setTimeout(() => history.push(`/${selectedProject!.id}/result`, 1000), 5000)
   return (
-    <>
-      <div>募金中...</div>
-    </>
+    <button className="btn btn-sm btn-ghost loading text-2xl">募金中...</button>
   )
 }

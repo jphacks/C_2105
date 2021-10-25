@@ -25,8 +25,10 @@ export const FundRaisingList: FC<Props> = () => {
   }, [selectedProject?.id])
   return (
     <>
-      <h1>スマート貯金箱</h1>
-      <div>募金したいプロジェクトを選んで、コインを入れてください</div>
+      <div className="stat-value text-4xl mt-16">スマート貯金箱</div>
+      <div className="text-xl">受付中の募金一覧</div>
+      <div className="w-24 h-2 bg-green-500 mb-8" />
+
       <FundRasingMemoItems />
       <button
         onClick={() => history.push(`/${selectedProject!.id}/loading`)}

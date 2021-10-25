@@ -22,12 +22,14 @@ export const EarnedValue: FC<Props> = ({
         </div> */}
       {/* </div> */}
       <div className="relative">
-        <div className="text-xs">￥{progress.toLocaleString()}</div>
         <progress
-          className="progress progress-accent opacity-50 w-32 h-4 absolute absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+          className="progress progress-accent opacity-50 w-32 h-4"
           value={`${progress}`}
           max={`${targetAmount}`}
         ></progress>
+        <div className="text-xs absolute absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          ￥{progress.toLocaleString()}
+        </div>
       </div>
     </div>
   )

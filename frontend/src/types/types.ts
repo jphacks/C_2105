@@ -4,7 +4,8 @@ export type Project = {
   id: number
   title: string
   explanation: string
-  Progress?: number
+  progress?: number
   imgUrl?: string
   earnedValue?: number //Arduino側から渡されたお金
+  targetAmount?: number
 }

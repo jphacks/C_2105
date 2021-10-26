@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { useHistory } from 'react-router-dom'
+import { Gallery } from '../components/Gallery'
 import { useProjectContext } from '../context/ProjectProvider'
 
 export const LoadingOnFundraising: FC = () => {
@@ -9,7 +10,10 @@ export const LoadingOnFundraising: FC = () => {
   setTimeout(() => history.push(`/${selectedProject!.id}/result`, 1000), 5000)
   return (
     <>
-      <div>募金中...</div>
+      <button className="btn btn-sm btn-ghost loading text-3xl absolute top-24">
+        募金中...
+      </button>
+      <Gallery />
     </>
   )
 }

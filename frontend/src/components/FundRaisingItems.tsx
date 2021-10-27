@@ -20,7 +20,7 @@ const FundRasingItems: FC = () => {
   const DefaultProjectItem = () => {
     return (
       <>
-        {defaultProject.id === selectedProject!.id ? (
+        {defaultProject.id === selectedProject.id ? (
           <div className="bg-green-300 bg-opacity-75 p-2 rounded-lg">
             <FundRasingMemoItem
               project={defaultProject}
@@ -45,7 +45,7 @@ const FundRasingItems: FC = () => {
       {projectData.length > 0 &&
         projectData.map((project) => (
           <div key={project.id}>
-            {project.id === selectedProject!.id ? (
+            {project.id === selectedProject.id ? (
               <div className="bg-green-300 bg-opacity-75 p-2 rounded-lg">
                 <FundRasingMemoItem
                   key={project.id}

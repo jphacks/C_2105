@@ -1,5 +1,7 @@
 ### Getting Started
 
+- node のバージョンは 16.13.0 -> stable 使ってます
+
 - `yarn install`
 - `yarn start`
 

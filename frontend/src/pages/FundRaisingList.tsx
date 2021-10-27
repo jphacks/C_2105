@@ -4,10 +4,9 @@ import socketIOClient from 'socket.io-client'
 import { useHistory } from 'react-router-dom'
 import { useProjectContext } from '../context/ProjectProvider'
 
-type Props = {}
 const ENDPOINT = 'http://localhost:3001'
 const earnedValue = 1000
-export const FundRaisingList: FC<Props> = () => {
+export const FundRaisingList: FC = () => {
   const history = useHistory()
   const { project: selectedProject, setProject } = useProjectContext()
 
@@ -16,12 +15,12 @@ export const FundRaisingList: FC<Props> = () => {
   // setTimeout(() => history.push(`/${selectedProject!.id}/loading`), 10000)
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT)
-    setProject({ ...selectedProject!, earnedValue: earnedValue })
+    setProject({ ...selectedProject, earnedValue: earnedValue })
     return () => {
       socket.disconnect()
     }
     //選択後に無理矢理、earnedValueを上書きしている あんまりよろしくない
-    /*eslint-disable-next-line*/
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedProject?.id])
   return (
     <>
@@ -31,7 +30,7 @@ export const FundRaisingList: FC<Props> = () => {
 
       <FundRasingMemoItems />
       <button
-        onClick={() => history.push(`/${selectedProject!.id}/loading`)}
+        onClick={() => history.push(`/${selectedProject.id}/loading`)}
         className="bg-gray-500 text-white w-16 h-16 mt-4"
       >
         仮遷移用ボタン

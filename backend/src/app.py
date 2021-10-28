@@ -3,7 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import db_init
 import json
-
+import datetime
+import uuid
+import random
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/jphacks.db'
@@ -52,6 +54,7 @@ def project_record(p):
 def log_record(l):
   return {'logId': l.logId, 'id': l.id, 'date': l.date, 'earnedValue': l.earnedValue, 'donationType': l.donationType}
 
+# プロジェクトのリストを返す。
 @app.route('/project')
 def project():
   id = request.args.get('id')
@@ -66,6 +69,7 @@ def project():
       result.append(project_record(p))
     return json.dumps(result)
 
+# ログのリストを返す。
 @app.route('/log')
 def log():
   id = request.args.get('id')
@@ -78,14 +82,47 @@ def log():
   else:
     return 'パラメータが正しくありません。'
 
-if __name__ == '__main__':
+# 募金をする。
+@app.route('/collect')
+def collect():
+  logId = int(str(uuid.uuid4().int)[:5])
+  id = request.args.get('id')
+  dt_now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+  earnedValue = request.args.get('earnedValue')
 
+  if id is not None:
+    # idに一致するプロジェクトに募金
+    donationType = 'selected'
+  else:
+    # ランダムに募金
+    donationType = 'auto'
+    project_all = Project.query.all()
+    id_array = []
+    for p in project_all:
+      id_array.append(p.id)
+    target_index = random.randint(0, len(id_array) - 1)
+    id = id_array[target_index]
+    print(target_index)
+    print(id)
+  
+  # ログを記録する。
+  log = Log(logId, id, dt_now, earnedValue, donationType)
+  db.session.add(log)
+
+  # プロジェクトのprogressを更新する。
+  project = Project.query.get(id)
+  project.progress += int(earnedValue)
+
+  # dbを更新
+  db.session.commit()
+
+  return json.dumps(project_record(project))
+
+if __name__ == '__main__':
   # 初期化
   db.drop_all()
   # db生成
   db.create_all()
-
   # ダミーデータを保存
   db_init.initialize()
-
   app.run(host='0.0.0.0', port=8080)

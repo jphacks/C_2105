@@ -168,6 +168,21 @@ def create_project():
 
   return json.dumps(project_record(p))
 
+# コラムを作成する。
+@app.route('/create_column')
+def create_column():
+  columnId = int(str(uuid.uuid4().int)[:5])
+  id = request.args.get('id')
+  columnTitle = request.args.get('columnTitle')
+  body = request.args.get('body')
+  dt_now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+  imgUrl = request.args.get('imgUrl')
+
+  c = Column(columnId, id, columnTitle, body, dt_now, imgUrl)
+  db.session.add(c)
+  db.session.commit()
+
+  return json.dumps(column_record(c))
 
 if __name__ == '__main__':
   # 初期化

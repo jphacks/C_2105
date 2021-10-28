@@ -103,6 +103,19 @@ def log():
   else:
     return 'パラメータが正しくありません。'
 
+# コラムのリストを返す。
+@app.route('/column')
+def column():
+  id = request.args.get('id')
+  if id is not None:
+    column = Project.query.get(id).column
+    result = []
+    for c in column:
+      result.append(column_record(c))
+    return json.dumps(result)
+  else:
+    return 'パラメータが正しくありません。'
+
 # 募金をする。
 @app.route('/collect')
 def collect():

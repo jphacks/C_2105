@@ -118,6 +118,23 @@ def collect():
 
   return json.dumps(project_record(project))
 
+# プロジェクトを作成する。
+@app.route('/create_project')
+def create_project():
+  id = request.args.get('id')
+  title = request.args.get('title')
+  explanation = request.args.get('explanation')
+  progress = request.args.get('progress')
+  imgUrl = request.args.get('imgUrl')
+  targetAmount = request.args.get('targetAmount')
+
+  p = Project(id, title, explanation, progress, imgUrl, targetAmount)
+  db.session.add(p)
+  db.session.commit()
+
+  return json.dumps(project_record(p))
+
+
 if __name__ == '__main__':
   # 初期化
   db.drop_all()

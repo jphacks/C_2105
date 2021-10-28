@@ -20,19 +20,20 @@ const FundRasingItems: FC = () => {
   const DefaultProjectItem = () => {
     return (
       <>
-        {defaultProject.id === selectedProject!.id ? (
-          //親要素だけ広げて、子要素に影響させないことはできる？
-          <div className="bg-green-500 bg-opacity-75 p-2">
+        {defaultProject.id === selectedProject.id ? (
+          <div className="bg-green-300 bg-opacity-75 p-2 rounded-lg">
             <FundRasingMemoItem
               project={defaultProject}
               changeProject={changeProject}
             />
           </div>
         ) : (
-          <FundRasingMemoItem
-            project={defaultProject}
-            changeProject={changeProject}
-          />
+          <div className="bg-white p-2">
+            <FundRasingMemoItem
+              project={defaultProject}
+              changeProject={changeProject}
+            />
+          </div>
         )}
       </>
     )
@@ -44,9 +45,8 @@ const FundRasingItems: FC = () => {
       {projectData.length > 0 &&
         projectData.map((project) => (
           <div key={project.id}>
-            {project.id === selectedProject!.id ? (
-              //親要素だけ広げて、子要素に影響させないことはできる？
-              <div className="bg-green-500 bg-opacity-75 p-2">
+            {project.id === selectedProject.id ? (
+              <div className="bg-green-300 bg-opacity-75 p-2 rounded-lg">
                 <FundRasingMemoItem
                   key={project.id}
                   project={project}
@@ -54,10 +54,12 @@ const FundRasingItems: FC = () => {
                 />
               </div>
             ) : (
-              <FundRasingMemoItem
-                project={project}
-                changeProject={changeProject}
-              />
+              <div className="bg-white p-2">
+                <FundRasingMemoItem
+                  project={project}
+                  changeProject={changeProject}
+                />
+              </div>
             )}
           </div>
         ))}

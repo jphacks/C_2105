@@ -12,6 +12,16 @@ const PORT = process.env.PORT || 3001;
 
 io.on('connection', (socket) => {
   console.log('connected!');
+
+  // 初期設定（端末識別）
+  // 本来はデバイスごとに切り替え
+  // ラズパイとかで動かす想定ならlocalhostでやればいいから問題なし
+  socket.join('test');
+
+  socket.on('donated', (donatedMoney) => {
+    console.log('donated!')
+    socket.to('test').emit('donated', donatedMoney);
+  });
 });
 
 http.listen(PORT, function(){

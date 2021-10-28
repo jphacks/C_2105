@@ -4,6 +4,7 @@ import { EarnedValue } from './EarnedValue'
 type Props = { project: Project; changeProject: (project: Project) => void }
 
 const FundRasingItem: FC<Props> = ({ project, changeProject }) => {
+  console.log(project)
   return (
     <div
       className="grid grid-cols-3 grid-rows-4 gap-2 border border-black max-w-md h-36 bg-white rounded-lg p-2"
@@ -21,7 +22,7 @@ const FundRasingItem: FC<Props> = ({ project, changeProject }) => {
         {project.explanation}
       </div>
       <div className="font-bold row-span-1 col-span-2 self-center">
-        <EarnedValue EarnedValue={project.Progress} />
+        <EarnedValue {...project} />
       </div>
     </div>
   )

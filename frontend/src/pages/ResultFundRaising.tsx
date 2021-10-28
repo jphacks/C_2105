@@ -1,9 +1,8 @@
 import { FC } from 'react'
 import { ResultItem } from '../components/ResultItem'
 import { useProjectContext } from '../context/ProjectProvider'
-type Props = {}
 
-export const ResultFundRaising: FC<Props> = () => {
+export const ResultFundRaising: FC = () => {
   //選択したPJ Contextで持っておいて、＋Arduino側からもらった金額を足して表示
   const { project } = useProjectContext()
 

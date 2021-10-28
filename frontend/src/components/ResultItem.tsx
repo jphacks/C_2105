@@ -25,7 +25,7 @@ export const ResultItem: FC<Props> = ({ project }) => {
         {project.explanation}
       </div>
       <div className="font-bold row-span-1 col-span-2 self-center w-10/12">
-        <EarnedValue EarnedValue={project.Progress} />
+        <EarnedValue {...project} />
       </div>
     </div>
   )

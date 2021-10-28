@@ -17,9 +17,44 @@ const sp = new Serialport(process.env.PORT_NAME, {
   baudRate: 115200,
 });
 
+const coins = {
+  '1': {
+    weight: 1.,
+  },
+  '50': {
+    weight: 4.
+  },
+  '5': {
+    weight: 3.75
+  },
+  '100': {
+    weight: 4.8
+  },
+  '10': {
+    weight: 4.5
+  },
+  '500': {
+    weight: 7.
+  }
+};
+
 sp.on('data', (data) => {
   try {
-    console.log(data.toString());
+    const value = parseFloat(data.toString());
+    if(value == NaN){
+      return;
+    }
+    let dif = 1e8;
+    let res = {};
+    Object.keys(coins).forEach((key) => {
+      let d = Math.abs(value - coins[key].weight);
+      if(d < dif){
+        res = {};
+        res[key] = 1;
+        dif = d;
+      }
+    });
+    socket.emit('donated', res);
   } catch(e) {
     console.log(e);
     return;

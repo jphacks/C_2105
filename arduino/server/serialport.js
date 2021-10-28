@@ -17,25 +17,44 @@ const sp = new Serialport(process.env.PORT_NAME, {
   baudRate: 115200,
 });
 
-const coinsSortedBySize = ['1', '50', '5', '100', '10', '500'];
-
-let counter = new Array(7).fill(0);
+const coins = {
+  '1': {
+    weight: 1.,
+  },
+  '50': {
+    weight: 4.
+  },
+  '5': {
+    weight: 3.75
+  },
+  '100': {
+    weight: 4.8
+  },
+  '10': {
+    weight: 4.5
+  },
+  '500': {
+    weight: 7.
+  }
+};
 
 sp.on('data', (data) => {
   try {
-    const value = data.toString();
-    if(value == 'end'){
-      // 一旦投入に区切りがついた
-      const donatedMoney = {};
-      for(let i = 0; i < 6; i++){
-        donatedMoney[coinsSortedBySize[i]] = counter[i] - counter[i + 1];
-      }
-      // イベント名は変えるかも
-      socket.emit('donated', donatedMoney);
-      counter = new Array(7).fill(0);
-    }else{
-      counter[value]++;
+    const value = parseFloat(data.toString());
+    if(value == NaN){
+      return;
     }
+    let dif = 1e8;
+    let res = {};
+    Object.keys(coins).forEach((key) => {
+      let d = Math.abs(value - coins[key].weight);
+      if(d < dif){
+        res = {};
+        res[key] = 1;
+        dif = d;
+      }
+    });
+    socket.emit('donated', res);
   } catch(e) {
     console.log(e);
     return;

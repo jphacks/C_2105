@@ -21,7 +21,6 @@ float AE_HX711_getGram(char num);
 
 
 float offset;
-float prev;
 
 void setup() {
   Serial.begin(9600);
@@ -29,9 +28,9 @@ void setup() {
   AE_HX711_Init();
   AE_HX711_Reset();
   offset = AE_HX711_getGram(30); 
-  prev = AE_HX711_getGram(5);
 }
 
+float prev;
 
 void loop() 
 { 
@@ -40,8 +39,9 @@ void loop()
   char s[20];
   if(abs(AE_HX711_getGram(5) - prev) > 0.5){
     delay(2000); // must optimize this parameter
-    Serial.println(AE_HX711_getGram(5) - prev);
+    Serial.print(AE_HX711_getGram(5) - offset);
   }
+  prev = AE_HX711_getGram(5);
 }
 
 

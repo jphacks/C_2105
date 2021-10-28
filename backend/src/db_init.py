@@ -1,4 +1,4 @@
-from app import db, Project, Log
+from app import db, Project, Log, Column
 
 def initialize():
   p = Project(101, 'プロジェクト1', 'プロジェクト1の説明です。', 50, 'hoge.jpg', 100)
@@ -14,5 +14,12 @@ def initialize():
   db.session.add(l)
   l = Log(50003, 102, '20211025093255', 40, 'auto')
   db.session.add(l)
+
+  c = Column(90001, 101, 'コラム1', 'コラム1の本文', '20211028223511', 'hoge.jpg')
+  db.session.add(c)
+  c = Column(90002, 101, 'コラム2', 'コラム2の本文', '20211028223611', 'hoge.jpg')
+  db.session.add(c)
+  c = Column(90003, 102, 'コラム3', 'コラム3の本文', '20211028223711', 'hoge.jpg')
+  db.session.add(c)
 
   db.session.commit()

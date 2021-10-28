@@ -23,6 +23,7 @@ class Project(db.Model):
   targetAmount = db.Column(db.Integer)
   # 外部キー
   log = db.relationship('Log')
+  column = db.relationship('Column')
   # 初期化
   def __init__(self, id=0, title='', explanation='', progress=0, imgUrl='', targetAmount=0):
     self.id = id
@@ -46,6 +47,22 @@ class Log(db.Model):
     self.earnedValue = earnedValue
     self.donationType = donationType
 
+# コラムテーブルの定義
+class Column(db.Model):
+  columnId = db.Column(db.Integer, primary_key=True)
+  id = db.Column(db.Integer, db.ForeignKey('project.id'))
+  columnTitle = db.Column(db.String)
+  body = db.Column(db.String)
+  date = db.Column(db.String)
+  imgUrl = db.Column(db.String)
+  def __init__(self, columnId=0, id=0, columnTitle='', body='', date='', imgUrl=''):
+    self.columnId = columnId
+    self.id = id
+    self.columnTitle = columnTitle
+    self.body = body
+    self.date = date
+    self.imgUrl = imgUrl
+
 # プロジェクトのオブジェクトを返す。※そのままだと扱いにくい型のため。
 def project_record(p):
   return {'id': p.id, 'title': p.title, 'explanation': p.explanation, 'progress': p.progress, 'imgUrl': p.imgUrl, 'targetAmount': p.targetAmount}
@@ -53,6 +70,10 @@ def project_record(p):
 # ログのオブジェクトを返す。
 def log_record(l):
   return {'logId': l.logId, 'id': l.id, 'date': l.date, 'earnedValue': l.earnedValue, 'donationType': l.donationType}
+
+# コラムのオブジェクトを返す。
+def column_record(c):
+  return {'columnId': c.columnId, 'id': c.id, 'columnTitle': c.columnTitle, 'body': c.body, 'date': c.date, 'imgUrl': c.imgUrl}
 
 # プロジェクトのリストを返す。
 @app.route('/project')

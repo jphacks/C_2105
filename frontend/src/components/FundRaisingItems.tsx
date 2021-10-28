@@ -1,7 +1,8 @@
 import { FC, memo, useCallback } from 'react'
 import { FundRasingMemoItem } from './FundRasingItem'
-import { projectData } from '../dummyData/dummyProjects'
+// import { projectData } from '../dummyData/dummyProjects'
 import { useProjectContext } from '../context/ProjectProvider'
+import { Project } from '../types/types'
 
 const defaultProject = {
   id: 0,
@@ -9,7 +10,11 @@ const defaultProject = {
   explanation: '自動でプロジェクトが選ばれて、募金されます。',
 }
 
-const FundRasingItems: FC = () => {
+type Props = {
+  projects: Project[]
+}
+
+const FundRasingItems: FC<Props> = ({ projects }) => {
   const { project: selectedProject, setProject } = useProjectContext()
   const changeProject = useCallback(
     (e) => {
@@ -42,8 +47,8 @@ const FundRasingItems: FC = () => {
   return (
     <div className="grid grid-cols-2 gap-8">
       <DefaultProjectItem />
-      {projectData.length > 0 &&
-        projectData.map((project) => (
+      {projects.length > 0 &&
+        projects.map((project: Project) => (
           <div key={project.id}>
             {project.id === selectedProject.id ? (
               <div className="bg-green-300 bg-opacity-75 p-2 rounded-lg">

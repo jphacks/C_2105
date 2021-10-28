@@ -31,7 +31,7 @@ export const Gallery: FC = () => {
   return (
     <AliceCarousel
       autoPlay
-      autoPlayInterval={3000}
+      autoPlayInterval={1200}
       disableButtonsControls
       infinite
     >

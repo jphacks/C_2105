@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import db_init
+import db_seed
 import json
 import datetime
 import uuid
@@ -188,5 +189,6 @@ if __name__ == '__main__':
   # db生成
   db.create_all()
   # ダミーデータを保存 ※本番では削除して、APIからプロジェクトなどを作成する。
-  db_init.initialize()
+  # db_init.initialize()
+  db_seed.seed()
   app.run(host='0.0.0.0', port=8080)

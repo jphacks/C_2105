@@ -20,6 +20,7 @@ io.on('connection', (socket) => {
 
   socket.on('donated', (donatedMoney) => {
     console.log('donated!')
+    console.log(donatedMoney)
     socket.to('test').emit('donated', donatedMoney);
   });
 });

@@ -14,7 +14,7 @@ socket.on('connect', () => {
 
 
 const sp = new Serialport(process.env.PORT_NAME, {
-  baudRate: 115200,
+  baudRate: 19200,
 });
 
 const coins = {
@@ -38,12 +38,19 @@ const coins = {
   }
 };
 
+let dataStack = "";
 sp.on('data', (data) => {
   try {
-    const value = parseFloat(data.toString());
-    if(value == NaN){
-      return;
-    }
+    const v = data.toString();
+    let flg = false;
+    console.log(v);
+    [].forEach.call(v, (c) => {
+      if(c != "e") dataStack += c;
+      else flg = true;
+    });
+    if(!flg) return;
+    const value = parseFloat(dataStack) + 0.1; // 全体的に0.1gくらい軽めに数値が出ている印象
+    dataStack = "";
     let dif = 1e8;
     let res = {};
     Object.keys(coins).forEach((key) => {

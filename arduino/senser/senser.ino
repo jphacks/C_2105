@@ -41,13 +41,13 @@ void loop()
   // Serial.println(AE_HX711_getGram(5) - offset);
   // Serial.println(prev - offset);
   if(data - prev > 0.1){
-    Serial.println("s");
+    Serial.print("s");
     while(!stable());
     Serial.print(AE_HX711_getGram(5) - prev);
     Serial.print("e");
     prev = AE_HX711_getGram(5);
   }else if(data - prev < -1.0){
-    prev = data
+    prev = data;
   }
 }
 

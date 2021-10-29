@@ -25,7 +25,8 @@ io.on('connection', (socket) => {
   });
 
   socket.on('fin', () => {
-    socket.to('fin').emit('donated', 'finish');
+    console.log('donation finished')
+    socket.to('test').emit('fin', 'finish');
   })
 });
 

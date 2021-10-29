@@ -136,8 +136,6 @@ def collect():
       id_array.append(p.id)
     target_index = random.randint(0, len(id_array) - 1)
     id = id_array[target_index]
-    print(target_index)
-    print(id)
   
   # ログを記録する。
   log = Log(logId, id, dt_now, earnedValue, donationType)
@@ -189,6 +187,6 @@ if __name__ == '__main__':
   db.drop_all()
   # db生成
   db.create_all()
-  # ダミーデータを保存
+  # ダミーデータを保存 ※本番では削除して、APIからプロジェクトなどを作成する。
   db_init.initialize()
   app.run(host='0.0.0.0', port=8080)

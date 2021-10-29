@@ -44,16 +44,20 @@ let timerFlg = false;
 let dataStack = "";
 sp.on('data', (data) => {
   try {
-    if(timerFlg){
-      clearTimeout(timer);
-      timerFlg = false;
-    }
     const v = data.toString();
     let flg = false;
     console.log(v);
     [].forEach.call(v, (c) => {
-      if(c != "e") dataStack += c;
-      else flg = true;
+      if(c == "e") {
+        flg = true;
+      }else if(c == "s") {
+        if(timerFlg){
+          clearTimeout(timer);
+          timerFlg = false;
+        }
+      }else {
+        dataStack += c;
+      }
     });
     if(!flg) return;
     const value = parseFloat(dataStack) + 0.2; // 全体的に0.1gくらい軽めに数値が出ている印象
@@ -72,7 +76,7 @@ sp.on('data', (data) => {
     timer = setTimeout(() => {
       socket.emit('fin');
       timerFlg = false;
-    }, 3000);
+    }, 10000);
     timerFlg = true;
   } catch(e) {
     console.log(e);

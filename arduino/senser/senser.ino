@@ -36,17 +36,18 @@ void setup() {
 
 void loop() 
 { 
-  float data;
-  char S1[20];
-  char s[20];
+  float data = AE_HX711_getGram(5);
   // Serial.print("now: ");
   // Serial.println(AE_HX711_getGram(5) - offset);
   // Serial.println(prev - offset);
-  if(AE_HX711_getGram(5) - prev > 0.1){
+  if(data - prev > 0.1){
+    Serial.println("s");
     while(!stable());
     Serial.print(AE_HX711_getGram(5) - prev);
-    Serial.println("e");
+    Serial.printn("e");
     prev = AE_HX711_getGram(5);
+  }else if(data - prev < -1.0){
+    prev = data
   }
 }
 

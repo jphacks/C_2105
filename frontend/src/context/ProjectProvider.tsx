@@ -3,8 +3,8 @@ import { Project } from '../types/types'
 
 const initialProject = {
   id: 0,
-  title: '',
-  explanation: '',
+  title: '自動選択',
+  explanation: '自動選択',
   earnedValue: 0,
 }
 

@@ -22,7 +22,7 @@ export const LoadingOnFundraising: FC = () => {
     const postProject = async () => {
       try {
         //わざと遅らせてる
-        await timeout(3600)
+        await timeout(4500)
         await axios
           .get<DonatedProject>(`${process.env.REACT_APP_REST_URL}${reqUrl}`)
           .then(({ data }) => {
@@ -38,9 +38,12 @@ export const LoadingOnFundraising: FC = () => {
 
   return (
     <>
-      <div className="flex text-3xl items-center absolute top-24">
+      <div className="flex text-3xl items-center absolute top-24 stat-value">
         <Loading className="mr-4 flex items-center" width={40} />
-        <div>募金中...</div>
+        <div>
+          {selectedProject.title}
+          {selectedProject.id === 0 ? 'で' : 'に'}募金中...
+        </div>
       </div>
       <Gallery />
     </>

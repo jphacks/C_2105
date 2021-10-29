@@ -38,9 +38,16 @@ const coins = {
   }
 };
 
+let timer;
+let timerFlg = false;
+
 let dataStack = "";
 sp.on('data', (data) => {
   try {
+    if(timerFlg){
+      clearTimeout(timer);
+      timerFlg = false;
+    }
     const v = data.toString();
     let flg = false;
     console.log(v);
@@ -49,7 +56,7 @@ sp.on('data', (data) => {
       else flg = true;
     });
     if(!flg) return;
-    const value = parseFloat(dataStack) + 0.1; // 全体的に0.1gくらい軽めに数値が出ている印象
+    const value = parseFloat(dataStack) + 0.2; // 全体的に0.1gくらい軽めに数値が出ている印象
     dataStack = "";
     let dif = 1e8;
     let res = {};
@@ -62,6 +69,11 @@ sp.on('data', (data) => {
       }
     });
     socket.emit('donated', res);
+    timer = setTimeout(() => {
+      socket.emit('fin');
+      timerFlg = false;
+    }, 3000);
+    timerFlg = true;
   } catch(e) {
     console.log(e);
     return;

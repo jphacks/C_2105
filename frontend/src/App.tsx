@@ -2,10 +2,11 @@ import { VFC } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { FundRaisingList } from './page/FundRaisingList'
+import { FundRaisingList } from './pages/FundRaisingList'
 import { Layout } from './components/Layout'
-import { LoadingOnFundraising } from './page/LoadingOnFundraising'
-import { ResultFundRaising } from './page/ResultFundRaising'
+import { LoadingOnFundraising } from './pages/LoadingOnFundraising'
+import { ResultFundRaising } from './pages/ResultFundRaising'
+import { ProjectProvider } from './context/ProjectProvider'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,16 +22,21 @@ const App: VFC = () => {
     <div className="flex justify-center items-center flex-col min-h-screen text-gray-600 text-sm font-mono">
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <Layout>
-            <Switch>
-              <Route exact path="/" component={FundRaisingList} />
-              <Route
-                path="/:projectId/loading"
-                component={LoadingOnFundraising}
-              />
-              <Route path="/:projectId/result" component={ResultFundRaising} />
-            </Switch>
-          </Layout>
+          <ProjectProvider>
+            <Layout>
+              <Switch>
+                <Route exact path="/" component={FundRaisingList} />
+                <Route
+                  path="/:projectId/loading"
+                  component={LoadingOnFundraising}
+                />
+                <Route
+                  path="/:projectId/result"
+                  component={ResultFundRaising}
+                />
+              </Switch>
+            </Layout>
+          </ProjectProvider>
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

@@ -1,0 +1,12 @@
+version: '3'
+services:
+  ws_server:
+    container_name: ws_server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    ports:
+      - "3001:3001"
+    env_file: 
+      - ./.env

@@ -1,32 +1,38 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 import { Project } from '../types/types'
 import { EarnedValue } from './EarnedValue'
-import { useHistory } from 'react-router-dom'
-type Props = { project: Project }
+import { imgMap } from '../assets/index'
+import { imgNamePicker } from '../lib/imgNamePicker'
+type Props = { project: Project; changeProject: (project: Project) => void }
 
-export const FundRasingItem: FC<Props> = ({ project }) => {
-  const history = useHistory()
+const FundRasingItem: FC<Props> = ({ project, changeProject }) => {
   return (
     <div
-      className="grid grid-cols-3 border border-black w-96 h-32"
+      className="grid grid-cols-3 grid-rows-4 gap-2 border border-black max-w-md h-36 bg-white rounded-lg p-2"
       onClick={() => {
-        history.push(`${project.id}/loading`)
+        changeProject({ ...project })
       }}
     >
-      <div className="col-span-1 bg-gray-300">ここ画像</div>
-      <div className="col-span-2 grid-rows-4 justify-center">
-        <div className="font-bold row-span-1 h-10 overflow-y-scroll">
-          {project.title}
-        </div>
-        {/* 多分伸ばせるようにしたほうがいいかも or modalとか挟んでも良さそう */}
-        <div className="row-span-2 overflow-y-scroll h-16">
-          {project.explanation}
-        </div>
-        {/* <div className="font-bold row-span-1">説明</div> */}
-        <div className="font-bold row-span-1 h-2">
-          <EarnedValue EarnedValue={project.Progress} />
-        </div>
+      <img
+        className="col-span-1 bg-gray-300 rounded-lg row-span-4 h-32 w-full border border-black"
+        src={
+          project.imgUrl
+            ? //@ts-expect-error 仮置き
+              imgMap[imgNamePicker(project.imgUrl)]
+            : imgMap['noImage']
+        }
+      />
+      <div className="font-bold row-span-1 col-span-2 truncate">
+        {project.title}
+      </div>
+      <div className="row-span-2 col-span-2 overflow-y-scroll">
+        {project.explanation}
+      </div>
+      <div className="font-bold row-span-1 col-span-2 self-center">
+        <EarnedValue {...project} />
       </div>
     </div>
   )
 }
+
+export const FundRasingMemoItem = memo(FundRasingItem)

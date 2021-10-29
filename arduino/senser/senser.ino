@@ -22,26 +22,32 @@ float AE_HX711_getGram(char num);
 
 float offset;
 
+float eps = 0.1;
+float prev;
+
 void setup() {
-  Serial.begin(9600);
-  Serial.println("AE_HX711 test");
+  Serial.begin(19200);
   AE_HX711_Init();
   AE_HX711_Reset();
   offset = AE_HX711_getGram(30); 
+  prev = offset;
 }
 
-float prev;
 
 void loop() 
 { 
   float data;
   char S1[20];
   char s[20];
-  if(abs(AE_HX711_getGram(5) - prev) > 0.5){
-    delay(2000); // must optimize this parameter
-    Serial.print(AE_HX711_getGram(5) - offset);
+  // Serial.print("now: ");
+  // Serial.println(AE_HX711_getGram(5) - offset);
+  // Serial.println(prev - offset);
+  if(AE_HX711_getGram(5) - prev > 0.1){
+    while(!stable());
+    Serial.print(AE_HX711_getGram(5) - prev);
+    Serial.println("e");
+    prev = AE_HX711_getGram(5);
   }
-  prev = AE_HX711_getGram(5);
 }
 
 
@@ -110,4 +116,13 @@ float AE_HX711_getGram(char num)
 
 
   return data;
+}
+
+bool stable(){
+  float v = AE_HX711_getGram(5);
+  bool ok = true;
+  for(int i = 0; i < 3; i++){
+    if(abs(v - AE_HX711_getGram(5)) > eps) ok = false;
+  }
+  return ok;
 }

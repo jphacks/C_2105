@@ -23,6 +23,10 @@ io.on('connection', (socket) => {
     console.log(donatedMoney)
     socket.to('test').emit('donated', donatedMoney);
   });
+
+  socket.on('fin', () => {
+    socket.to('test').emit('donated', 'finish');
+  })
 });
 
 http.listen(PORT, function(){

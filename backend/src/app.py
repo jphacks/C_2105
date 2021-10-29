@@ -1,7 +1,7 @@
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-import db_init
+# import db_init
 import db_seed
 import json
 import datetime
@@ -137,7 +137,7 @@ def collect():
       id_array.append(p.id)
     target_index = random.randint(0, len(id_array) - 1)
     id = id_array[target_index]
-  
+
   # ログを記録する。
   log = Log(logId, id, dt_now, earnedValue, donationType)
   db.session.add(log)

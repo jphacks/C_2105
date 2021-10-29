@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { useProjectContext } from '../context/ProjectProvider'
 import { useQueryProjects } from '../hooks/useQueryProject'
 import { Loading } from '../components/Loading'
+// import { Socket } from 'socket.io'
 
 const ENDPOINT = 'http://localhost:3001'
 const earnedValue = 1000
@@ -12,12 +13,15 @@ export const FundRaisingList: FC = () => {
   const history = useHistory()
   const { project: selectedProject, setProject } = useProjectContext()
   const { status, data } = useQueryProjects()
+  // let socket: Socket
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT)
-    socket.on('donated', (data) => {
-      console.log(data)
-    })
-
+    if (socket !== undefined) {
+      socket.emit('donated', 100)
+      socket.on('data', (data) => {
+        console.log(data)
+      })
+    }
     setProject({ ...selectedProject, earnedValue: earnedValue })
     return () => {
       socket.disconnect()
@@ -25,11 +29,12 @@ export const FundRaisingList: FC = () => {
     //選択後に無理矢理、earnedValueを上書きしている あんまりよろしくない
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedProject?.id, earnedValue])
+
   if (status === 'loading' || !data) return <Loading />
   if (status === 'error') return <div>Error</div>
   return (
     <>
-      <div className="stat-value text-4xl mt-16">スマート貯金箱</div>
+      <div className="stat-value text-4xl mt-16">スマート募金箱</div>
       <div className="text-xl">受付中の募金一覧</div>
       <div className="w-24 h-2 bg-green-500 mb-8" />
 

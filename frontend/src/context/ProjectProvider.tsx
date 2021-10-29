@@ -5,6 +5,7 @@ const initialProject = {
   id: 0,
   title: '',
   explanation: '',
+  earnedValue: 0,
 }
 
 type StateContextType = {

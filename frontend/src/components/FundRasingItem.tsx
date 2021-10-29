@@ -2,6 +2,7 @@ import { FC, memo } from 'react'
 import { Project } from '../types/types'
 import { EarnedValue } from './EarnedValue'
 import { imgMap } from '../assets/index'
+import { imgNamePicker } from '../lib/imgNamePicker'
 type Props = { project: Project; changeProject: (project: Project) => void }
 
 const FundRasingItem: FC<Props> = ({ project, changeProject }) => {
@@ -13,9 +14,13 @@ const FundRasingItem: FC<Props> = ({ project, changeProject }) => {
       }}
     >
       <img
-        className="col-span-1 bg-gray-300 rounded-lg row-span-4 h-32 w-32 border border-black"
-        // src={project.imgUrl ? project.imgUrl : imgMap['noImage']}
-        src={imgMap['noImage']}
+        className="col-span-1 bg-gray-300 rounded-lg row-span-4 h-32 w-full border border-black"
+        src={
+          project.imgUrl
+            ? //@ts-expect-error 仮置き
+              imgMap[imgNamePicker(project.imgUrl)]
+            : imgMap['noImage']
+        }
       />
       <div className="font-bold row-span-1 col-span-2 truncate">
         {project.title}

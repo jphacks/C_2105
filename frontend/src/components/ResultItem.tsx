@@ -12,6 +12,9 @@ export const ResultItem: FC<Props> = ({ project }) => {
   if (!project) {
     return <div>Error</div>
   }
+
+  const qrUrl = process.env.REACT_APP_PJ! + `?no=${project.id}`
+
   return (
     <div className="grid grid-cols-5 grid-rows-4 gap-y-2 gap-x-4 border border-black w-11/12 h-96 rounded-lg p-2">
       <img
@@ -31,7 +34,7 @@ export const ResultItem: FC<Props> = ({ project }) => {
         <div className="mb-4 text-center">
           詳しいプロジェクトの状況をWebでチェック！
         </div>
-        <QRCode value="https://google.com" className="mx-auto" />
+        <QRCode value={qrUrl} className="mx-auto" />
       </div>
       <div className="row-span-2 col-span-2 overflow-y-scroll w-full">
         {project.explanation}

@@ -1,6 +1,7 @@
 # スマート募金
 
-[![スマート募金](./logo-smartbokin.png)](https://youtu.be/45O0Zeq0DPQ)
+[![スマート募金](./logo-smartbokin.png)](https://youtu.be/45O0Zeq0DPQ)  
+[動画リンク](https://youtu.be/45O0Zeq0DPQ)
 
 ## 製品概要
 

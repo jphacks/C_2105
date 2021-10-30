@@ -1,0 +1,15 @@
+.pjpage {
+  text-align: center;
+  background-color: rgb(255, 190, 71);
+}
+
+.sub-container {
+  margin: auto;
+  width: 70%;
+}
+
+.news-update {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}

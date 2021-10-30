@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 import queryString from "query-string";
@@ -52,7 +52,7 @@ export const Projects: FC = () => {
   }
 
   return (
-    <div className="pjpage has-text-white pb-5">
+    <div className="pjpage has-text-white-ter pb-5">
       <div className={`container`}>
         <div className="sub-container">
           <div>

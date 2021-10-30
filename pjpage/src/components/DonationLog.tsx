@@ -32,7 +32,7 @@ export const DonationLog: FC<Props> = ({ id }) => {
       <h2 className="is-size-4 has-text-weight-semibold">寄付ログ</h2>
       <ul>
         {latestDonateHistory.map((data) => (
-          <li>{`${data.date} ${data.earnedValue}円の寄付がありました。`}</li>
+          <li>{`${data.date.slice(0,4)}/${data.date.slice(4,6)}/${data.date.slice(6,8)} ${data.date.slice(8,10)}:${data.date.slice(10,12)} ${data.earnedValue}円の寄付がありました`}</li>
         ))}
       </ul>
     </div>

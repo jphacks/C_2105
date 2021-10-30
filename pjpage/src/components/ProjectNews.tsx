@@ -33,18 +33,22 @@ export const ProjectNews: FC<Props> = ({ id }) => {
         プロジェクトからのお知らせ
       </h2>
       {latestNews.map((data) => (
-        <div className="columns is-mobile card m-2">
-          <img
-            className="column is-3"
-            src={data.imgUrl}
-            alt={data.columnTitle}
-          />
-          <div className="column is-9 is-relative">
-            <h3 className="is-size-5 has-text-weight-semibold">
-              {data.columnTitle}
-            </h3>
-            <p className="mb-4">{data.body}</p>
-            <p className="news-update">{data.date}</p>
+        <div className="card my-2 p-2">
+          <h3 className="is-size-5 has-text-weight-semibold">
+            {data.columnTitle}
+          </h3>
+          <div className="columns is-mobile is-multiline">
+            <figure className="column is-3-desktop is-full-touch">
+              <img
+                className=""
+                src={data.imgUrl}
+                alt={data.columnTitle}
+              />
+            </figure>
+            <div className="column is-relative">
+              <p className="mb-6">{data.body}</p>
+              <p className="news-update">{`${data.date.slice(0,4)}年${data.date.slice(4,6)}月${data.date.slice(6,8)}日`}</p>
+            </div>
           </div>
         </div>
       ))}

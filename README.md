@@ -77,8 +77,21 @@
 
 #### ハッカソンで開発した独自機能・技術
 
-- コインの判別、金額判定
-- 募金されたかどうかを認識する技術
+- 募金箱(ハードウェア部分)
+  - [コインの判別、金額判定](https://github.com/jphacks/C_2105/blob/master/arduino/server/serialport.js)
+  - [募金されたかどうかを認識する技術](https://github.com/jphacks/C_2105/blob/master/arduino/senser/senser.ino)
 
-- 独自で開発したものの内容をこちらに記載してください
-- 特に力を入れた部分をファイルリンク、または commit_id を記載してください。
+- アプリケーション(UI 部分)
+  - [募金先一覧](https://github.com/jphacks/C_2105/blob/master/frontend/src/pages/FundRaisingList.tsx)
+  - [ローディング](https://github.com/jphacks/C_2105/blob/master/frontend/src/pages/LoadingOnFundraising.tsx)
+  - [募金結果](https://github.com/jphacks/C_2105/blob/master/frontend/src/pages/ResultFundRaising.tsx)
+  - [個別プロジェクトページ](https://github.com/jphacks/C_2105/blob/master/pjpage/src/page/projects.tsx)
+  
+- アプリケーション(処理)
+  - クライアント
+    - [募金検知](https://github.com/jphacks/C_2105/blob/2a1117f8a5c86abe3453a355d3b34559425a802b/frontend/src/pages/FundRaisingList.tsx#L17-L30)
+  - サーバ側(プロジェクト取得APIなど)
+    - [API](https://github.com/jphacks/C_2105/blob/master/backend/src/app.py)
+
+
+

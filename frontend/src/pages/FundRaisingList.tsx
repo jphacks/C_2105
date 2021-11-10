@@ -5,23 +5,24 @@ import { useHistory } from 'react-router-dom'
 import { useProjectContext } from '../context/ProjectProvider'
 import { useQueryProjects } from '../hooks/useQueryProject'
 import { Loading } from '../components/Loading'
-// import { Socket } from 'socket.io'
+import { useMutateProject } from '../hooks/useMutateProject'
 
 const ENDPOINT = process.env.REACT_APP_ARDUINO_ENDPOINT
 let earnedValue = 0
 export const FundRaisingList: FC = () => {
+  // alert(ENDPOINT)
   const history = useHistory()
-  const { project: selectedProject, setProject } = useProjectContext()
+  const { project: selectedProject } = useProjectContext()
   const { status, data } = useQueryProjects()
+  const { updateProjectMutation } = useMutateProject()
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT!)
     if (socket !== undefined) {
       socket.on('donated', (data) => {
         earnedValue = Number(Object.keys(data)[0]) * data[Object.keys(data)[0]]
-
-        setProject({ ...selectedProject, earnedValue: earnedValue })
-        history.push(`/${selectedProject.id}/loading`)
+        updateProjectMutation.mutate(earnedValue)
+        history.push(`/${selectedProject.id}/result`)
       })
     }
 

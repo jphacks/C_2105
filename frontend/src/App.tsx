@@ -1,12 +1,12 @@
-import { VFC } from 'react'
+import { VFC, useEffect } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { FundRaisingList } from './pages/FundRaisingList'
 import { Layout } from './components/Layout'
-import { LoadingOnFundraising } from './pages/LoadingOnFundraising'
 import { ResultFundRaising } from './pages/ResultFundRaising'
 import { ProjectProvider } from './context/ProjectProvider'
+// import { Camera } from './pages/Camera'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,6 +18,10 @@ const queryClient = new QueryClient({
 })
 
 const App: VFC = () => {
+  useEffect(() => {
+    document.title = 'スマート募金箱'
+  }, [])
+
   return (
     <div className="flex justify-center items-center flex-col min-h-screen text-gray-600 text-sm font-mono">
       <QueryClientProvider client={queryClient}>
@@ -27,13 +31,10 @@ const App: VFC = () => {
               <Switch>
                 <Route exact path="/" component={FundRaisingList} />
                 <Route
-                  path="/:projectId/loading"
-                  component={LoadingOnFundraising}
-                />
-                <Route
                   path="/:projectId/result"
                   component={ResultFundRaising}
                 />
+                {/* <Route path="/camera" component={Camera} /> */}
               </Switch>
             </Layout>
           </ProjectProvider>

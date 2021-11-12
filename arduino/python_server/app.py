@@ -1,6 +1,32 @@
 # 必要なモジュールの読み込み
 from flask import Flask
 from flask_socketio import SocketIO, emit, join_room
+import torch
+import torch.nn as nn
+from torchvision import models, transforms
+import os
+
+# CNNの準備
+data_transformer = transforms.Compose([
+  transforms.ToPILImage(),
+  transforms.RandomResizedCrop(256),
+  transforms.ToTensor(),
+  transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+])
+
+classes = ['0', '1', '10', '100', '5', '50', '500']
+
+model = models.resnet50(pretrained=False)
+num_ftrs = model.fc.in_features
+model.fc = nn.Linear(num_ftrs, 7)
+model.to('cpu')
+
+weight_path = ''
+
+if os.path.exists(weight_path):
+  model.load_state_dict(torch.load(weight_path))
+
+model.eval()
 
 # 非同期処理に使用するライブラリの指定
 # `threading`, `eventlet`, `gevent`から選択可能

@@ -6,7 +6,7 @@ import { FundRaisingList } from './pages/FundRaisingList'
 import { Layout } from './components/Layout'
 import { ResultFundRaising } from './pages/ResultFundRaising'
 import { ProjectProvider } from './context/ProjectProvider'
-import { useSocketRef } from './hooks/useSocketRef'
+import { useGetImageCapture } from './hooks/useGetImageCapture'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,10 +18,9 @@ const queryClient = new QueryClient({
 })
 
 const App: VFC = () => {
-  const { socketRef } = useSocketRef()
+  useGetImageCapture()
   useEffect(() => {
     document.title = 'スマート募金箱'
-    console.log('socketRef', socketRef.current)
   }, [])
 
   return (
@@ -36,7 +35,6 @@ const App: VFC = () => {
                   path="/:projectId/result"
                   component={ResultFundRaising}
                 />
-                {/* <Route path="/camera" component={Camera} /> */}
               </Switch>
             </Layout>
           </ProjectProvider>

@@ -5,7 +5,17 @@
 - `yarn install`
 - `yarn start`
 
-- ディレクトリにについて(src以下)
+### 環境変数について
+
+- .env.local
+
+```
+REACT_APP_REST_URL=*** <-backend server
+REACT_APP_ARDUINO_ENDPOINT=*** <-Arduino server
+REACT_APP_PJ=*** <-Detail PJ(Another frontend)
+```
+
+- ディレクトリにについて(src 以下)
 
 ```
 └── src

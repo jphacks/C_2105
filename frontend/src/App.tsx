@@ -6,7 +6,7 @@ import { FundRaisingList } from './pages/FundRaisingList'
 import { Layout } from './components/Layout'
 import { ResultFundRaising } from './pages/ResultFundRaising'
 import { ProjectProvider } from './context/ProjectProvider'
-// import { Camera } from './pages/Camera'
+import { useSocketRef } from './hooks/useSocketRef'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,8 +18,10 @@ const queryClient = new QueryClient({
 })
 
 const App: VFC = () => {
+  const { socketRef } = useSocketRef()
   useEffect(() => {
     document.title = 'スマート募金箱'
+    console.log('socketRef', socketRef.current)
   }, [])
 
   return (

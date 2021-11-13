@@ -5,6 +5,9 @@ import torch
 import torch.nn as nn
 from torchvision import models, transforms
 import os
+import cv2
+import numpy as np
+from collections import deque
 
 # CNNの準備
 data_transformer = transforms.Compose([
@@ -27,6 +30,10 @@ if os.path.exists(weight_path):
   model.load_state_dict(torch.load(weight_path))
 
 model.eval()
+
+## 画像データ格納用
+images = deque()
+CACHED_IMG_NUM = 30
 
 # 非同期処理に使用するライブラリの指定
 # `threading`, `eventlet`, `gevent`から選択可能
@@ -58,6 +65,12 @@ def donation_finished():
   print('donation finished')
   emit('fin', 'fin', broadcast=True)
 
+@socketio.on('stream')
+def stream(img):
+  img = np.frombuffer(img, np.uint8)
+  images.append(cv2.imdecode(img, flags=cv2.IMREAD_COLOR))
+  if len(images) > CACHED_IMG_NUM:
+    images.popleft()
 
 
 if __name__ == '__main__':

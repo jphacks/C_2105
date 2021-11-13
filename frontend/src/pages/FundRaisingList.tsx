@@ -1,35 +1,27 @@
 import { FC, useEffect } from 'react'
 import { FundRasingMemoItems } from '../components/FundRaisingItems'
-import socketIOClient from 'socket.io-client'
 import { useHistory } from 'react-router-dom'
 import { useProjectContext } from '../context/ProjectProvider'
 import { useQueryProjects } from '../hooks/useQueryProject'
 import { Loading } from '../components/Loading'
 import { useMutateProject } from '../hooks/useMutateProject'
+import { useSocketRef } from '../hooks/useSocketRef'
 
-const ENDPOINT = process.env.REACT_APP_ARDUINO_ENDPOINT
 let earnedValue = 0
 export const FundRaisingList: FC = () => {
-  // alert(ENDPOINT)
   const history = useHistory()
   const { project: selectedProject } = useProjectContext()
   const { status, data } = useQueryProjects()
   const { updateProjectMutation } = useMutateProject()
-
+  const { socketRef } = useSocketRef()
   useEffect(() => {
-    const socket = socketIOClient(ENDPOINT!)
-    if (socket !== undefined) {
-      socket.on('donated', (data) => {
+    if (socketRef.current !== undefined) {
+      socketRef.current.on('donated', (data) => {
         earnedValue = Number(Object.keys(data)[0]) * data[Object.keys(data)[0]]
         updateProjectMutation.mutate(earnedValue)
         history.push(`/${selectedProject.id}/result`)
       })
     }
-
-    return () => {
-      socket.disconnect()
-    }
-
     //選択後に無理矢理、earnedValueを上書きしている あんまりよろしくない
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedProject?.id, earnedValue])

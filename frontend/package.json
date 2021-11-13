@@ -5,6 +5,8 @@
   "dependencies": {
     "@craco/craco": "^6.3.0",
     "@reduxjs/toolkit": "^1.5.1",
+    "@tensorflow-models/body-pix": "^2.2.0",
+    "@tensorflow/tfjs": "^3.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",

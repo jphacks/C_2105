@@ -8,25 +8,30 @@ import os
 import cv2
 import numpy as np
 from collections import deque
+from utils.predict import predict
+from utils.dict_add import dict_add
+from utils.preprocessing import preprocessing
 
 # CNNの準備
 data_transformer = transforms.Compose([
   transforms.ToPILImage(),
   transforms.RandomResizedCrop(256),
+  transforms.CenterCrop(224),
   transforms.ToTensor(),
   transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
 
 classes = ['0', '1', '10', '100', '5', '50', '500']
 
-model = models.resnet50(pretrained=False)
+model = models.resnet18(pretrained=False)
 num_ftrs = model.fc.in_features
 model.fc = nn.Linear(num_ftrs, 7)
 model.to('cpu')
 
-weight_path = ''
+weight_path = 'iPad_image_cpu_resnet18.pth'
 
 if os.path.exists(weight_path):
+  print('Load a pretrained model')
   model.load_state_dict(torch.load(weight_path))
 
 model.eval()
@@ -72,6 +77,28 @@ def stream(img):
   if len(images) > CACHED_IMG_NUM:
     images.popleft()
 
+@socketio.on('coin in')
+def coin_in():
+  print('prediction start')
+  res = { x: 0 for x in classes }
+  for img in images:
+    img = preprocessing(img)
+    if len(img) == 0:
+      continue
+    res = dict_add(res, predict(model, img, classes=classes, transformer=data_transformer))
+  
+  coin = '0'
+  pred_val = 0
+  for key, val in res.items():
+    if key == coin:
+      continue
+    if pred_val < val:
+      coin = key
+      pred_val = val
+
+  if coin != '0':
+    print('a coin {:s} was donated'.format(coin))
+    emit('donated', { coin: 1 }, broadcast=True)
 
 if __name__ == '__main__':
   socketio.run(app, host='0.0.0.0', port=3001)

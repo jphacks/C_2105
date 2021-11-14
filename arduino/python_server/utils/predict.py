@@ -7,7 +7,6 @@ def to_tensor(inputs, transformer):
 
 def predict(model, inputs, classes, transformer):
   inputs = to_tensor(inputs, transformer)
-  print(inputs.shape)
   outputs = model(inputs)
   preds = outputs.argmax(dim=1, keepdim=True)
   res = { x: 0 for x in classes}

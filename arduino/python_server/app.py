@@ -11,6 +11,8 @@ from collections import deque
 from utils.predict import predict
 from utils.dict_add import dict_add
 from utils.preprocessing import preprocessing
+from io import BytesIO
+import base64
 
 # CNNの準備
 data_transformer = transforms.Compose([
@@ -70,10 +72,16 @@ def donation_finished():
   print('donation finished')
   emit('fin', 'fin', broadcast=True)
 
-@socketio.on('stream')
+@socketio.on('image')
 def stream(img):
+  print('image recieved')
+  img = base64.b64decode(img['image'].split(',')[1])
   img = np.frombuffer(img, np.uint8)
-  images.append(cv2.imdecode(img, flags=cv2.IMREAD_COLOR))
+
+  if img is not None:
+    images.append(cv2.imdecode(img, flags=cv2.IMREAD_COLOR))
+    cv2.imwrite('test.jpg', images[-1])
+  
   if len(images) > CACHED_IMG_NUM:
     images.popleft()
 

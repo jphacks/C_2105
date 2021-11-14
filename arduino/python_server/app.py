@@ -80,7 +80,6 @@ def stream(img):
 
   if img is not None:
     images.append(cv2.imdecode(img, flags=cv2.IMREAD_COLOR))
-    cv2.imwrite('test.jpg', images[-1])
   
   if len(images) > CACHED_IMG_NUM:
     images.popleft()
@@ -107,6 +106,8 @@ def coin_in():
   if coin != '0':
     print('a coin {:s} was donated'.format(coin))
     emit('donated', { coin: 1 }, broadcast=True)
+  else:
+    print('coin is not detected')
 
 if __name__ == '__main__':
   socketio.run(app, host='0.0.0.0', port=3001)

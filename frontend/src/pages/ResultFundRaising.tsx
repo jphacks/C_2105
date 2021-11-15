@@ -2,12 +2,13 @@ import { FC, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import { ResultItem } from '../components/ResultItem'
 import { useDonatedProject } from '../hooks/useDonatedProject'
+import { useEstimateNumberOfPeople } from '../hooks/useEstimateNumberOfPeople'
 
 export const ResultFundRaising: FC = () => {
   const history = useHistory()
   const [topPageButton, setTopPageButton] = useState(false)
   const project = useDonatedProject()
-
+  const { inFront } = useEstimateNumberOfPeople()
   useEffect(() => {
     const timer = setTimeout(() => {
       history.push('/')
@@ -16,6 +17,7 @@ export const ResultFundRaising: FC = () => {
       setTopPageButton(true)
     }, 5000)
     return () => {
+      inFront.current = false
       clearTimeout(timer)
       clearTimeout(topPageTimer)
     }
@@ -27,7 +29,9 @@ export const ResultFundRaising: FC = () => {
       {topPageButton && (
         <button
           className="btn btn-outline btn-accent absolute top-16 right-16"
-          onClick={() => history.push('/')}
+          onClick={() => {
+            history.push('/')
+          }}
         >
           トップ画面へ
         </button>

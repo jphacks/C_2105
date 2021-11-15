@@ -5,7 +5,7 @@ import { Project } from '../types/types'
 export const useQueryProjects = () => {
   const getProjects = async () => {
     const { data } = await axios.get<Project[]>(
-      `${process.env.REACT_APP_REST_URL}project`
+      `${process.env.REACT_APP_REST_URL}/project`
     )
     return data
   }

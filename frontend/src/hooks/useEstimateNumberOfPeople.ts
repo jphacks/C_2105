@@ -4,12 +4,16 @@ import { useCallback, useRef } from 'react'
 
 export const useEstimateNumberOfPeople = () => {
   const inFront = useRef<boolean>()
+  const segmentation = useRef<bodyPix.PersonSegmentation[]>()
   const estimateNumberOfPeople = useCallback(async (webcam) => {
-    const model = await bodyPix.load()
-    const segmentation = await model.segmentMultiPerson(webcam)
-    // console.log(segmentation.length ? 'true' : 'false')
-
-    inFront.current = segmentation.length ? true : false
+    if (!inFront.current) {
+      const model = await bodyPix.load()
+      segmentation.current = await model.segmentMultiPerson(webcam)
+      // console.log(segmentation.length ? 'true' : 'false')
+    }
+    if (segmentation.current) {
+      inFront.current = segmentation.current.length ? true : false
+    }
   }, [])
 
   return {

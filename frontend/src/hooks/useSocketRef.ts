@@ -6,7 +6,7 @@ export const useSocketRef = () => {
 
   useEffect(() => {
     if (!socketRef.current) {
-      socketRef.current = io(ENDPOINT!)
+      socketRef.current = io(ENDPOINT!, { transports: ['websocket'] })
     }
     return () => {
       console.log('disconnect')

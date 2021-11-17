@@ -19,6 +19,10 @@ export const EarnedValue: FC<Props> = ({
 
   const progressStyle = result ? 'h-8 w-80' : 'h-4 w-32'
   const textStyle = result ? 'text-xl' : ''
+  let plusValue = 0
+  if (earnedValue) {
+    plusValue = earnedValue * 50
+  }
   return (
     <div className="flex items-center space-x-24">
       <div className={`label-text ${textStyle}`}>達成状況</div>
@@ -49,12 +53,12 @@ export const EarnedValue: FC<Props> = ({
           ></progress>
           {earnedValue && (
             <>
-              <div className="text-info absolute -top-5 left-1/2 transform -translate-x-1/5 text-xs animate-bounce">
+              <div className="text-info absolute -top-5 left-1/2 transform -translate-x-1/5 text-xl font-bold animate-bounce">
                 +￥{earnedValue}
               </div>
               <progress
                 className={`progress progress-info opacity-60 w-32 ${progressStyle} absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
-                value={`${progress + earnedValue}`}
+                value={`${progress + plusValue}`}
                 max={`${targetAmount}`}
               ></progress>
             </>

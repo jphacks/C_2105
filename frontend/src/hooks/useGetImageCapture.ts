@@ -4,7 +4,7 @@ import { useEstimateNumberOfPeople } from './useEstimateNumberOfPeople'
 
 export const useGetImageCapture = async () => {
   const { socketRef } = useSocketRef()
-  //仮
+  // //仮
   // setInterval(() => {
   //   socketRef.current?.emit('coin in')
   // }, 10000)
@@ -14,7 +14,7 @@ export const useGetImageCapture = async () => {
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
   //fps上げすぎるとsocket通信が落ちます
-  const fps = 5
+  const fps = 10
   const loop = () => {
     setTimeout(async () => {
       requestAnimationFrame(loop)
@@ -34,7 +34,6 @@ export const useGetImageCapture = async () => {
     video.srcObject = mediaStream
     video.onplay = () => {
       loop()
-      // test()
     }
   }
 

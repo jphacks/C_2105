@@ -6,7 +6,7 @@ import { FundRaisingList } from './pages/FundRaisingList'
 import { Layout } from './components/Layout'
 import { ResultFundRaising } from './pages/ResultFundRaising'
 import { ProjectProvider } from './context/ProjectProvider'
-import { useGetImageCapture } from './hooks/useGetImageCapture'
+import { Background } from './components/animationComponents/Background'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,7 +18,6 @@ const queryClient = new QueryClient({
 })
 
 const App: VFC = () => {
-  useGetImageCapture()
   useEffect(() => {
     document.title = 'スマート募金箱'
   }, [])
@@ -28,15 +27,16 @@ const App: VFC = () => {
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <ProjectProvider>
-            <Layout>
-              <Switch>
-                <Route exact path="/" component={FundRaisingList} />
+            <Switch>
+              <Route exact path="/" component={Background} />
+              <Layout>
+                <Route exact path="/project-list" component={FundRaisingList} />
                 <Route
                   path="/:projectId/result"
                   component={ResultFundRaising}
                 />
-              </Switch>
-            </Layout>
+              </Layout>
+            </Switch>
           </ProjectProvider>
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} />

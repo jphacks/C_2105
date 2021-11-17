@@ -3,8 +3,15 @@ import numpy as np
 import copy
 
 # 画像のトリミングとかできるならここでやる
-def preprocessing(img):
-  return crop_img(img)
+def preprocessing(img, top=0, bottom=-1, left=0, right=-1):
+  h, w, c = img.shape
+  if bottom == -1:
+    bottom = h
+  if right == -1:
+    right = w
+  # 投入部分をトリミングする方針に変更
+  # return crop_img(img)
+  return [img[top:bottom, left:right, :]]
 
 
 def crop_img(img, minDist=30, param1=100, param2=40, minRadius=30, maxRadius=70):

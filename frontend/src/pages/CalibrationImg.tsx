@@ -54,13 +54,6 @@ export const CaliblationImg: FC = () => {
     }
   }, [])
 
-  const style = {
-    top: `${top}px`,
-    left: `${left}px`,
-    width: `${len}px`,
-    height: `${len}px`,
-  }
-
   return (
     <>
       <h1>calibration page</h1>

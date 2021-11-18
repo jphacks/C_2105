@@ -42,6 +42,13 @@ model.eval()
 images = deque()
 CACHED_IMG_NUM = 30
 
+## キャリブレーション用パラメータ
+top = 0
+left = 0
+bottom = -1
+right = -1
+
+
 # 非同期処理に使用するライブラリの指定
 # `threading`, `eventlet`, `gevent`から選択可能
 async_mode = None
@@ -108,6 +115,16 @@ def coin_in():
     emit('donated', { coin: 1 }, broadcast=True)
   else:
     print('coin is not detected')
+
+@socketio.on('calibration')
+def calibration(cali):
+  global top, left, bottom, right
+  top = cali['top']
+  left = cali['left']
+  bottom = cali['bottom']
+  right = cali['right']
+  print('calibration complete')
+  print("top: {:d}, left: {:d}, bottom: {:d}, right: {:d}".format(top, left, bottom, right))
 
 if __name__ == '__main__':
   socketio.run(app, host='0.0.0.0', port=3001)

@@ -7,6 +7,7 @@ import { Layout } from './components/Layout'
 import { ResultFundRaising } from './pages/ResultFundRaising'
 import { ProjectProvider } from './context/ProjectProvider'
 import { Background } from './components/animationComponents/Background'
+import { CaliblationImg } from './pages/CalibrationImg'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,6 +36,7 @@ const App: VFC = () => {
                   path="/:projectId/result"
                   component={ResultFundRaising}
                 />
+                <Route exact path="/calibration" component={CaliblationImg} />
               </Layout>
             </Switch>
           </ProjectProvider>

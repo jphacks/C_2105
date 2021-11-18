@@ -72,6 +72,11 @@ export const CaliblationImg: FC = () => {
         setLeft={setLeft}
         setTop={setTop}
         setLen={setLen}
+        beforeUpdate={() => {
+          if (timer) {
+            clearInterval(timer)
+          }
+        }}
       />
     </>
   )

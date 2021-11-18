@@ -9,6 +9,7 @@ type props = {
   setTop: (value: number) => void
   setLeft: (value: number) => void
   setLen: (value: number) => void
+  beforeUpdate: () => void
 }
 
 export const FixParams: FC<props> = ({
@@ -18,12 +19,14 @@ export const FixParams: FC<props> = ({
   setTop,
   setLeft,
   setLen,
+  beforeUpdate,
 }) => {
   const { socketRef } = useSocketRef()
   const history = useHistory()
 
   const onClickSubmit = (e: any) => {
     e.preventDefault()
+    beforeUpdate()
     socketRef.current?.emit('calibration', {
       top,
       bottom: top + len,

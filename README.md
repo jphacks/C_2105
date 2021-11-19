@@ -1,7 +1,11 @@
 # スマート募金
 
 [![スマート募金](./logo-smartbokin.png)](https://youtu.be/45O0Zeq0DPQ)  
-### [動画リンク](https://youtu.be/45O0Zeq0DPQ)
+<!-- ### [動画リンク](https://youtu.be/45O0Zeq0DPQ) -->
+
+
+https://user-images.githubusercontent.com/69241625/142688394-a9d7f264-08a2-46e3-9ade-e0ce4d0f6ea5.mp4
+
 
 
 <img src="https://user-images.githubusercontent.com/69241625/139519486-22e9d9e7-505c-4ab3-8e76-2fbf77e22dba.jpg" width="350"> <img src="https://user-images.githubusercontent.com/69241625/139519487-6aa1b9bb-2326-472b-8b67-c68ead1a3878.jpg" width="350"> <img src="https://user-images.githubusercontent.com/69241625/139519491-206e4b61-9dd8-4a07-9196-9bbbbd982cee.jpg" width="250">

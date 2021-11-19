@@ -66,6 +66,7 @@
 
 - React
 - Flask
+- Pytorch（改善期間に追加）
 
 #### デバイス
 
@@ -93,5 +94,11 @@
   - サーバ側(プロジェクト取得APIなど)
     - [API](https://github.com/jphacks/C_2105/blob/master/backend/src/app.py)
 
+### 改善期間での追加機能
 
+- [ResNetによって投入されたコインの種類を画像処理で識別](https://github.com/jphacks/C_2105/pull/34)  
+  -> 現段階では硬貨の識別のみだが、将来的に紙幣への対応やコイン以外の投入物の識別も検討中
 
+- [iPadでの人物検知](https://github.com/jphacks/C_2105/pull/33)  
+  - 募金箱の前に人がいるかどうかを検知  
+    -> 前に人がいない場合の省エネモードの実装や人がいなくなった際のルートページへの自動遷移などに応用可能

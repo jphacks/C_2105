@@ -4,7 +4,8 @@
 <!-- ### [動画リンク](https://youtu.be/45O0Zeq0DPQ) -->
 
 
-https://user-images.githubusercontent.com/69241625/142688394-a9d7f264-08a2-46e3-9ade-e0ce4d0f6ea5.mp4
+
+https://user-images.githubusercontent.com/69241625/142710510-981f8bb0-634d-4ed4-b649-5ca53cabde9b.mp4
 
 
 
